@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layouts::header">
+    <title>Home</title>
+</head>
+
+<body>
+    <nav th:replace="layouts::navbar"/>
+
+    <div class="container">
+        <h3>Main Dashboard</h3>
+
+        <hr/>
+
+        <h4>Current Projects</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Project Name</th>
+                        <th>Project Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="project: ${projects}">
+                        <td th:text="${project.name}"/>
+                        <td th:text="${project.stage}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-4">
+                <canvas id="pieChart" height="50" width="50"></canvas>
+                <script>
+                    let chartData = "[[${projectStatusCount}]]"
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h4>Current Employees</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>First Name</th>
+                        <th>First Last Name</th>
+                        <th>Project Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="employeeProjectCnt: ${employeeProjectsCntList}">
+                        <td th:text="${employeeProjectCnt.firstName}"/>
+                        <td th:text="${employeeProjectCnt.lastName}"/>
+                        <td th:text="${employeeProjectCnt.projectCount}"/>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" th:src="@{/js/pie-chart.js}"></script>
+</body>
+</html>
